@@ -1,3 +1,4 @@
+import { PriceChart } from '@/components/price-chart';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { analyzeProduct } from '@/utils/analyzeProduct';
@@ -100,6 +101,8 @@ export default function ResultScreen() {
           </Pressable>
         ))}
 
+        <ThemedText type="title" style={styles.tipsHeader}>Price comparison</ThemedText>
+        <PriceChart shops={shops} />
         <ThemedText type="title" style={styles.tipsHeader}>Things to check</ThemedText>
         {product.tips?.map((tip: string, i: number) => (
           <ThemedText key={i} style={styles.tip}>- {tip}</ThemedText>
