@@ -1,17 +1,19 @@
-import { useEffect, useState } from 'react';
-import { StyleSheet, ScrollView, ActivityIndicator, Pressable } from 'react-native';
-import { router } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { analyzeProduct } from '@/utils/analyzeProduct';
-import { getCurrentImageUri } from '@/utils/imageStore';
 import { saveScan } from '@/utils/historyStore';
+import { getCurrentImageUri } from '@/utils/imageStore';
+import { searchShopping, ShoppingResult } from '@/utils/searchShopping';
+import { router } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ResultScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<any>(null);
+  const [product, setProduct] = useState<any>(null);
+  const [shops, setShops] = useState<ShoppingResult[]>([]);
 
   useEffect(() => {
     const run = async () => {
@@ -20,11 +22,19 @@ export default function ResultScreen() {
         if (!imageUri) {
           throw new Error('No image found');
         }
-        const data = await analyzeProduct(imageUri);
-        setResult(data);
-        await saveScan(data);
+
+        // Step 1: identify the product
+        const identified = await analyzeProduct(imageUri);
+        setProduct(identified);
+
+        // Step 2: search for real prices
+        const shoppingResults = await searchShopping(identified.product);
+        setShops(shoppingResults);
+
+        // Step 3: save to history
+        await saveScan({ ...identified, shops: shoppingResults });
       } catch (err: any) {
-        console.log('Analysis error:', err);
+        console.log('Error:', err);
         setError(err.message || 'Something went wrong');
       } finally {
         setLoading(false);
@@ -37,7 +47,7 @@ export default function ResultScreen() {
     return (
       <ThemedView style={styles.center}>
         <ActivityIndicator size="large" />
-        <ThemedText style={{ marginTop: 16 }}>Analyzing product...</ThemedText>
+        <ThemedText style={{ marginTop: 16 }}>Finding real prices...</ThemedText>
       </ThemedView>
     );
   }
@@ -58,28 +68,40 @@ export default function ResultScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <ThemedText type="title">{result.product}</ThemedText>
-        <ThemedView style={styles.verdictBadge}>
-          <ThemedText style={styles.verdictText}>{result.verdict}</ThemedText>
-        </ThemedView>
-        {result.listedPrice && (
-          <ThemedText style={styles.row}>Listed price: {result.listedPrice}</ThemedText>
+        <ThemedText type="title">{product.product}</ThemedText>
+        {product.listedPrice && (
+          <ThemedText style={styles.row}>Listed price: {product.listedPrice}</ThemedText>
         )}
 
-        <ThemedText type="title" style={styles.tipsHeader}>Estimated deals</ThemedText>
-        <ThemedText style={{ fontSize: 12, opacity: 0.6, marginBottom: 8 }}>
-          AI-estimated prices, not live data. Please verify on the actual site.
-        </ThemedText>
-        {result.deals?.map((deal: any, i: number) => (
-          <ThemedView key={i} style={styles.dealCard}>
-            <ThemedText style={styles.dealSite}>{deal.site}</ThemedText>
-            <ThemedText style={styles.dealPrice}>{deal.price}</ThemedText>
-            {deal.note && <ThemedText style={styles.dealNote}>{deal.note}</ThemedText>}
-          </ThemedView>
+        <ThemedText type="title" style={styles.tipsHeader}>Real prices found</ThemedText>
+
+        {shops.length === 0 && (
+          <ThemedText style={{ opacity: 0.6 }}>No live listings found for this product.</ThemedText>
+        )}
+
+        {shops.map((shop, i) => (
+          <Pressable
+            key={i}
+            style={styles.dealCard}
+            onPress={() =>
+              router.push({
+                pathname: '/webview',
+                params: { url: shop.link, title: shop.site },
+              })
+            }
+          >
+            <ThemedView style={styles.dealRow}>
+              <ThemedView>
+                <ThemedText style={styles.dealSite}>{shop.site}</ThemedText>
+                <ThemedText style={styles.dealPrice}>{shop.price}</ThemedText>
+              </ThemedView>
+              <ThemedText style={styles.dealArrow}>→</ThemedText>
+            </ThemedView>
+          </Pressable>
         ))}
 
         <ThemedText type="title" style={styles.tipsHeader}>Things to check</ThemedText>
-        {result.tips?.map((tip: string, i: number) => (
+        {product.tips?.map((tip: string, i: number) => (
           <ThemedText key={i} style={styles.tip}>- {tip}</ThemedText>
         ))}
 
@@ -95,14 +117,6 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   scrollContent: { padding: 24, gap: 12 },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24 },
-  verdictBadge: {
-    backgroundColor: '#2563eb',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 20,
-    alignSelf: 'flex-start',
-  },
-  verdictText: { color: '#fff', fontWeight: '600' },
   row: { fontSize: 15 },
   tipsHeader: { marginTop: 16, fontSize: 18 },
   tip: { fontSize: 15, lineHeight: 22 },
@@ -112,9 +126,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     gap: 4,
   },
+  dealRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+  },
   dealSite: { fontSize: 15, fontWeight: '600' },
   dealPrice: { fontSize: 18, fontWeight: '700', color: '#2563eb' },
-  dealNote: { fontSize: 13, opacity: 0.7 },
+  dealArrow: { fontSize: 20, opacity: 0.4 },
   button: {
     backgroundColor: '#2563eb',
     paddingVertical: 14,

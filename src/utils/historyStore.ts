@@ -7,7 +7,7 @@ export type ScanEntry = {
   product: string;
   verdict: string;
   listedPrice: string | null;
-  deals: { site: string; price: string; note?: string }[];
+  shops: { site: string; note?: string }[];
   tips: string[];
   timestamp: number;
 };

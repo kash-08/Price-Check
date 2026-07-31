@@ -15,7 +15,7 @@ export async function analyzeProduct(imageUri: string) {
 
   const base64Image = manipulated.base64;
 
-  const prompt = 'Identify the product in this image (it may be a physical product/price tag photo, or a screenshot of an online listing). Based on your knowledge, estimate a realistic price range for this product in India, in Indian Rupees (INR, use the Rs symbol). Suggest 2-3 well-known Indian shopping sites where this type of product is commonly sold (like Amazon.in, Flipkart, Croma, Reliance Digital) with an estimated price on each - these are estimates, not live prices. Respond ONLY with valid JSON in this exact format, no other text, no markdown: {"product": "product name", "listedPrice": "price if visible in the image, in INR, or null", "verdict": "Great Deal or Fair Price or Overpriced or Unknown", "deals": [{"site": "website name", "price": "Rs X,XXX (est.)", "note": "brief note"}], "tips": ["tip 1", "tip 2", "tip 3"]}';
+  const prompt = 'Identify the product in this image (it may be a physical product/price tag photo, or a screenshot of an online listing). Give a clear, specific product name suitable for a shopping search (include brand and model if visible). Respond ONLY with valid JSON in this exact format, no other text, no markdown: {"product": "specific product name", "listedPrice": "price if visible in the image, in INR, or null", "tips": ["tip 1", "tip 2", "tip 3"]}';
 
   const response = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${API_KEY}`,
@@ -41,7 +41,7 @@ export async function analyzeProduct(imageUri: string) {
   );
 
   const data = await response.json();
-  console.log('API response:', JSON.stringify(data).substring(0, 500));
+  console.log('Gemini response:', JSON.stringify(data).substring(0, 300));
 
   if (data.error) {
     throw new Error(data.error.message);

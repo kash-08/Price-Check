@@ -1,10 +1,10 @@
-import { useCallback, useState } from 'react';
-import { StyleSheet, FlatList, Pressable } from 'react-native';
-import { router, useFocusEffect } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { getHistory, clearHistory, ScanEntry } from '@/utils/historyStore';
+import { clearHistory, getHistory, ScanEntry } from '@/utils/historyStore';
+import { router, useFocusEffect } from 'expo-router';
+import { useCallback, useState } from 'react';
+import { FlatList, Pressable, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HistoryScreen() {
   const [history, setHistory] = useState<ScanEntry[]>([]);
@@ -52,12 +52,9 @@ export default function HistoryScreen() {
         renderItem={({ item }) => (
           <ThemedView style={styles.card}>
             <ThemedText style={styles.product}>{item.product}</ThemedText>
-            <ThemedView style={styles.badge}>
-              <ThemedText style={styles.badgeText}>{item.verdict}</ThemedText>
-            </ThemedView>
-            {item.deals?.[0] && (
+            {item.shops?.[0] && (
               <ThemedText style={styles.cheapest}>
-                Best: {item.deals[0].site} - {item.deals[0].price}
+                {item.shops[0].site}: {item.shops[0].price}
               </ThemedText>
             )}
             <ThemedText style={styles.date}>
@@ -90,14 +87,6 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   product: { fontSize: 16, fontWeight: '600' },
-  badge: {
-    backgroundColor: '#2563eb',
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-    borderRadius: 12,
-    alignSelf: 'flex-start',
-  },
-  badgeText: { color: '#fff', fontSize: 12, fontWeight: '600' },
   cheapest: { fontSize: 14, opacity: 0.8 },
   date: { fontSize: 12, opacity: 0.5 },
   button: {
