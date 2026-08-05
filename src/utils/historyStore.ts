@@ -5,9 +5,8 @@ const HISTORY_KEY = 'scan_history';
 export type ScanEntry = {
   id: string;
   product: string;
-  verdict: string;
   listedPrice: string | null;
-  shops: { site: string; note?: string }[];
+  shops: { site: string; price: string; link: string }[];
   tips: string[];
   timestamp: number;
 };

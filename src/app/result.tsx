@@ -1,12 +1,14 @@
 import { PriceChart } from '@/components/price-chart';
+import { PriceComparisonCard } from '@/components/price-comparison-card';
 import { AppColors, AppRadius, AppSpacing } from '@/constants/appTheme';
 import { analyzeProduct } from '@/utils/analyzeProduct';
+import { comparePrice, PriceComparison } from '@/utils/comparePrice';
 import { saveScan } from '@/utils/historyStore';
 import { getCurrentImageUri } from '@/utils/imageStore';
 import { searchShopping, ShoppingResult } from '@/utils/searchShopping';
 import { router } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, Animated, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Animated, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ResultScreen() {
@@ -15,6 +17,8 @@ export default function ResultScreen() {
   const [product, setProduct] = useState<any>(null);
   const [shops, setShops] = useState<ShoppingResult[]>([]);
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const [storePriceInput, setStorePriceInput] = useState('');
+  const [comparison, setComparison] = useState<PriceComparison | null>(null);
 
   useEffect(() => {
     const run = async () => {
@@ -38,6 +42,10 @@ export default function ResultScreen() {
     };
     run();
   }, []);
+  const handleCompare = () => {
+  const result = comparePrice(storePriceInput, shops);
+  setComparison(result);
+};
 
   useEffect(() => {
     if (!loading) {
@@ -111,6 +119,25 @@ export default function ResultScreen() {
                 </Pressable>
               ))}
             </View>
+            <Text style={styles.sectionHeader}>Compare with store price</Text>
+            <View style={styles.compareRow}>
+              <TextInput
+              style={styles.priceInput}
+              placeholder="₹ Price you see in store"
+              placeholderTextColor={AppColors.textMuted}
+              keyboardType="numeric"
+              value={storePriceInput}
+              onChangeText={setStorePriceInput}
+            />
+            <Text
+            style={styles.compareButton}
+            onPress={handleCompare}
+            >
+              Compare
+            </Text>
+            </View>
+            {comparison && <PriceComparisonCard result={comparison} />}
+
 
             {shops.length > 1 && (
               <>
@@ -212,4 +239,31 @@ const styles = StyleSheet.create({
     marginTop: AppSpacing.xl,
   },
   primaryButtonText: { color: '#fff', fontWeight: '700', fontSize: 16 },
+  compareRow: {
+  flexDirection: 'row',
+  gap: AppSpacing.sm,
+  marginBottom: AppSpacing.md,
+},
+priceInput: {
+  flex: 1,
+  backgroundColor: AppColors.surface,
+  borderWidth: 1,
+  borderColor: AppColors.border,
+  borderRadius: AppRadius.md,
+  paddingHorizontal: AppSpacing.md,
+  paddingVertical: 14,
+  color: AppColors.text,
+  fontSize: 15,
+},
+compareButton: {
+  backgroundColor: AppColors.accent,
+  color: '#fff',
+  fontWeight: '700',
+  fontSize: 14,
+  paddingHorizontal: AppSpacing.md,
+  paddingVertical: 14,
+  borderRadius: AppRadius.md,
+  textAlign: 'center',
+  overflow: 'hidden',
+},
 });
