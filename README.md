@@ -11,7 +11,7 @@ Built with React Native (Expo) and a multi-API AI pipeline combining computer vi
 | Home | Camera Scan | Result & Price Comparison | History |
 |---|---|---|---|
 | ![Home](<img width="1080" height="2412" alt="WhatsApp Image 2026-08-06 at 6 43 34 PM" src="https://github.com/user-attachments/assets/e398432a-75ba-4839-b4b2-07fad3c277c2" />
-) | ![Camera](<img width="1080" height="2412" alt="WhatsApp Image 2026-08-06 at 6 43 34 PM (1)" src="https://github.com/user-attachments/assets/f1f9afee-0c95-4102-bde2-7bfb2f38cf5b" /> <img width="1080" height="2412" alt="WhatsApp Image 2026-08-06 at 6 43 35 PM" src="https://github.com/user-attachments/assets/1f5644fd-997e-4718-8da7-834d6888181b" /><img width="716" height="1600" alt="WhatsApp Image 2026-08-06 at 6 43 35 PM (1)" src="https://github.com/user-attachments/assets/0d2b750c-8778-4232-9940-32200b644d59" />
+) | ![Camera](<img width="1080" height="2412" alt="WhatsApp Image 2026-08-06 at 6 43 34 PM (1)" src="https://github.com/user-attachments/assets/f1f9afee-0c95-4102-bde2-7bfb2f38cf5b" /> ,<img width="1080" height="2412" alt="WhatsApp Image 2026-08-06 at 6 43 35 PM" src="https://github.com/user-attachments/assets/1f5644fd-997e-4718-8da7-834d6888181b" />,<img width="716" height="1600" alt="WhatsApp Image 2026-08-06 at 6 43 35 PM (1)" src="https://github.com/user-attachments/assets/0d2b750c-8778-4232-9940-32200b644d59" />
 ) | ![Result](./screenshots/result.png) | ![History](./screenshots/history.png) |
 
 ## Live Demo
