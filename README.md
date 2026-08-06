@@ -6,6 +6,20 @@ Built with React Native (Expo) and a multi-API AI pipeline combining computer vi
 
 ---
 
+## Screenshots
+
+| Home | Camera Scan | Result & Price Comparison | History |
+|---|---|---|---|
+| ![Home](./screenshots/home.png) | ![Camera](./screenshots/camera.png) | ![Result](./screenshots/result.png) | ![History](./screenshots/history.png) |
+
+## Live Demo
+
+📱 **[Download the APK](#)** — install directly on Android (link to your EAS build download or a GitHub Release)
+
+🎥 **[Watch a demo video](#)** — 30-60 second walkthrough of the full scan → compare → decide flow
+
+---
+
 ## What it does
 
 1. **Scan a product** — either take a photo in-store, or upload a screenshot of an online listing
@@ -77,6 +91,8 @@ The buy-here-vs-buy-online recommendation is computed entirely on-device from da
 
 ## Running the project
 
+### Option 1: Development mode (Expo Go)
+
 ```bash
 npm install
 npx expo start
@@ -90,11 +106,30 @@ EXPO_PUBLIC_SERPAPI_KEY=your-serpapi-key
 
 Scan the QR code with Expo Go (Android/iOS) to run on a physical device.
 
+### Option 2: Standalone APK (Android)
+
+The app is also built as a standalone, installable Android APK — no Expo Go or dev server required. Built using [EAS Build](https://docs.expo.dev/build/introduction/):
+
+```bash
+npm install -g eas-cli
+eas login
+eas build:configure
+
+# API keys must be set as EAS secrets so they're baked into the build
+eas secret:create --scope project --name EXPO_PUBLIC_GEMINI_API_KEY --value your-gemini-key
+eas secret:create --scope project --name EXPO_PUBLIC_SERPAPI_KEY --value your-serpapi-key
+
+eas build -p android --profile preview
+```
+
+Once the cloud build finishes, download the `.apk` from the provided link and install it directly on an Android device (enable "install from unknown sources" if prompted). The installed app runs fully standalone with its own custom icon and splash screen — no Metro bundler or Expo Go dependency.
+
 ---
 
 ## Possible next steps
 
-- Standalone APK/IPA build (via EAS Build) for direct installation outside Expo Go
 - Push notifications for price-drop alerts on previously scanned products
 - Barcode scanning as a third input method alongside camera/gallery
 - Multi-currency support beyond INR
+- iOS build via EAS (currently Android-only)
+- Publish to the Play Store (would require moving API keys behind a backend proxy, since client-embedded keys are extractable from a public APK)
