@@ -8,36 +8,19 @@ Built with React Native (Expo) and a multi-API AI pipeline combining computer vi
 
 ## 📸 Screenshots
 
-<table align="center">
-  <tr>
-    <th>Home</th>
-    <th>Camera Scan</th>
-    <th>Result & Price Comparison</th>
-    <th>History</th>
-  </tr>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e398432a-75ba-4839-b4b2-07fad3c277c2" alt="Home" width="220"/>
+  <img src="https://github.com/user-attachments/assets/f1f9afee-0c95-4102-bde2-7bfb2f38cf5b" alt="Camera" width="220"/>
+  <img src="https://github.com/user-attachments/assets/1f5644fd-997e-4718-8da7-834d6888181b" alt="Result" width="220"/>
+  <img src="https://github.com/user-attachments/assets/0d2b750c-8778-4232-9940-32200b644d59" alt="History" width="220"/>
+</p>
 
-  <tr>
-    <td align="center">
-      <img src="https://github.com/user-attachments/assets/e398432a-75ba-4839-b4b2-07fad3c277c2" width="220"/>
-    </td>
-
-    <td align="center">
-      <img src="https://github.com/user-attachments/assets/f1f9afee-0c95-4102-bde2-7bfb2f38cf5b" width="220"/>
-      <br><br>
-      <img src="https://github.com/user-attachments/assets/1f5644fd-997e-4718-8da7-834d6888181b" width="220"/>
-      <br><br>
-      <img src="https://github.com/user-attachments/assets/0d2b750c-8778-4232-9940-32200b644d59" width="220"/>
-    </td>
-
-    <td align="center">
-      <img src="./screenshots/result.png" width="220"/>
-    </td>
-
-    <td align="center">
-      <img src="./screenshots/history.png" width="220"/>
-    </td>
-  </tr>
-</table>
+<p align="center">
+  <b>Home</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <b>Camera</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <b>Result</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <b>History</b>
+</p>
 
 ## Live Demo
 
