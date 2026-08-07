@@ -14,8 +14,13 @@ Built with React Native (Expo) and a multi-API AI pipeline combining computer vi
   <img src="https://github.com/user-attachments/assets/1f5644fd-997e-4718-8da7-834d6888181b" width="220"/>
   <img src="https://github.com/user-attachments/assets/0d2b750c-8778-4232-9940-32200b644d59" width="220"/>
   <img src="https://github.com/user-attachments/assets/b5c2f792-f4cf-4ecd-8e8e-93711aa65421" width="220"/>
-  <img src="https://github.com/user-attachments/assets/8e11ef1f-dcc1-4352-99d6-cf4fc01918fe" width="220"/>
+  <img src="https://github.com/user-attachments/assets/2c0c0d6b-a670-4383-9825-5d65a1738a15" width="220"/>
   <img src="https://github.com/user-attachments/assets/a239655d-a2b6-44a4-a6cc-baca3690e071" width="220"/>
+  <img src="https://github.com/user-attachments/assets/1eab9ef5-fe42-4591-969f-bc50300d2833" width="220"/>
+  <img src="https://github.com/user-attachments/assets/90493206-7208-4b07-9a76-7d07d4b5fd55" width="220"/>
+  <img src="https://github.com/user-attachments/assets/fd1315a5-0c52-4601-bf94-a4e97aea3100" width="220"/>
+  <img src="https://github.com/user-attachments/assets/af4fff90-834f-4e80-9ec0-692cd239df21" width="220"/>
+  <img src="https://github.com/user-attachments/assets/caaf71e9-903f-443b-af42-a005024546f9" width="220"/>
 </p>
 
 ## Live Demo
