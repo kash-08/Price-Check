@@ -25,9 +25,11 @@ Built with React Native (Expo) and a multi-API AI pipeline combining computer vi
 
 ## Live Demo
 
-📱 **[Download the APK](#)** — install directly on Android (link to your EAS build download or a GitHub Release)
+📱 **[Download the APK](#)** — install directly on Android : https://expo.dev/artifacts/eas/YoCMQpdEhHUly8vg4S8iXOFBNJ8V2aSnxXK5XAKg5UM.apk
 
-🎥 **[Watch a demo video](#)** — 30-60 second walkthrough of the full scan → compare → decide flow
+🎥 **[Watch a demo video](#)** —  https://github.com/user-attachments/assets/384f9505-79ed-4318-96a3-df44ac9a6c81
+
+
 
 ---
 
